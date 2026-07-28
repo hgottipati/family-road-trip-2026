@@ -299,6 +299,43 @@
   <div class="map-card">
     <div class="map-svg-wrap">
       <svg viewBox="0 0 900 640" xmlns="http://www.w3.org/2000/svg" aria-label="Schematic route map">
+        <!-- geographic background overlay -->
+        <g>
+          <!-- land masses -->
+          <path d="M-20,185 C40,178 110,175 160,182 C200,188 230,200 260,210
+                   C290,220 310,235 330,260 C350,285 340,320 330,350
+                   C325,365 320,375 315,390 C310,410 300,440 310,470
+                   C320,500 350,520 400,530 C450,540 520,535 580,520
+                   C620,510 650,495 680,475 C710,455 730,440 760,430
+                   C790,420 820,425 850,440 C870,450 890,470 900,490
+                   L900,640 L-20,640 Z"
+                fill="#1F3A5F" opacity="0.04"/>
+          <path d="M-20,185 C40,178 110,175 160,182 C200,188 230,175 260,160
+                   C280,150 300,130 330,110 C360,90 380,75 420,65
+                   C460,55 510,60 560,75 C600,88 640,110 680,140
+                   C710,162 730,178 760,188 C790,196 830,195 870,185
+                   C890,180 900,175 900,170 L900,-20 L-20,-20 Z"
+                fill="#1F3A5F" opacity="0.04"/>
+          <!-- Lake Huron -->
+          <path d="M-10,22 C22,8 68,12 96,42 C112,62 118,98 116,138
+                   C112,176 92,208 58,216 C28,220 8,198 -4,170
+                   C-14,140 -18,58 -10,22 Z"
+                fill="#2E7D6B" opacity="0.08"/>
+          <!-- Lake Ontario -->
+          <path d="M412,88 C442,76 500,80 548,92 C588,105 622,122 620,148
+                   C618,168 588,178 548,180 C498,182 448,170 425,155
+                   C404,142 396,104 412,88 Z"
+                fill="#2E7D6B" opacity="0.08"/>
+          <!-- Lake Erie -->
+          <path d="M262,210 C298,196 358,192 416,196 C466,200 506,192 518,208
+                   C526,224 510,240 464,248 C414,255 344,256 294,248
+                   C260,242 248,226 262,210 Z"
+                fill="#2E7D6B" opacity="0.08"/>
+          <!-- US-Canada border -->
+          <path d="M-20,185 Q80,182 180,188 Q280,198 380,205 Q480,195 560,186 Q640,180 720,184 Q800,188 900,182"
+                fill="none" stroke="#1F3A5F" stroke-width="1" stroke-dasharray="6 4" opacity="0.12"/>
+        </g>
+
         <!-- route path: Pittsburgh -> Niagara -> Toronto -> Grand Bend -> (back) Toronto -> Pittsburgh -> DC -> Shenandoah -> Pittsburgh -->
         <path d="M330,390 L512,170 L390,105 L120,150"
               fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-linecap="round"/>
