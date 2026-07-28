@@ -235,7 +235,7 @@
   }
   .day-bar{
     position:relative; z-index:3;
-    margin:16px 0 14px; padding:9px 16px;
+    margin:16px 0 14px; padding:9px 16px 9px 84px;
     background:rgba(31,58,95,0.06);
     border-top:1px solid rgba(31,58,95,0.12);
     border-bottom:1px solid rgba(31,58,95,0.12);
@@ -335,6 +335,7 @@
     .stop{ padding-left:64px; }
     .marker{ left:3px; width:40px; height:40px; font-size:17px; }
     .phase-tag{ margin-left:64px; }
+    .day-bar{ padding-left:64px; }
     .stats{ grid-template-columns:repeat(2, 1fr); }
     .stat:nth-child(3){ border-left:none; border-top:1px dashed rgba(31,58,95,0.3); }
     .stat:nth-child(4){ border-top:1px dashed rgba(31,58,95,0.3); }
@@ -474,10 +475,10 @@
   <div class="kid-grid">
     <div class="kid-card">
       <span class="kc-emoji">🚀</span>
-      <h4>Kamin Science Center</h4>
+      <h4>Carnegie Science Center</h4>
       <div class="kc-meta">~30 min · North Shore</div>
       <p>Hands-on everything: space exhibits, a giant model railroad, and a real WWII submarine (USS Requin) you can tour. Easily a half-day.</p>
-      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Kamin+Science+Center+Pittsburgh" target="_blank" rel="noopener">📍 Open in Maps</a>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Carnegie+Science+Center+Pittsburgh" target="_blank" rel="noopener">📍 Open in Maps</a>
     </div>
     <div class="kid-card">
       <span class="kc-emoji">🦁</span>
@@ -633,7 +634,7 @@ const stops = [
   },
   { phase: "Kid Days · Wind-Down",
     date:"AUG 10 · MON", icon:"🎢", type:"kids", drive:"local",
-    title:"Kid Day 1", place:"Pick from Kid Days below", q:"Kamin Science Center Pittsburgh",
+    title:"Kid Day 1", place:"Pick from Kid Days below", q:"Carnegie Science Center Pittsburgh",
     what:"Pick from the <b>Kid Days</b> menu below — Science Center + Children's Museum pair well (they're next door to each other).",
     stay:"🌙 Seven Fields"
   },
