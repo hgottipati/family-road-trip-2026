@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pittsburgh ⇄ Toronto ⇄ DC · Family Road Trip · Jul 30–Aug 12, 2026</title>
+<meta property="og:title" content="Pittsburgh ⇄ Toronto ⇄ DC — Family Road Trip">
+<meta property="og:description" content="14 days · 2 countries · Falls, a lake, a temple, monuments, a mountain — and the kids.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDE6D6;
+    --card:#FBF8F1;
+    --ink:#1F3A5F;
+    --ink-soft:#3C5478;
+    --asphalt:#33312D;
+    --gold:#D9A441;
+    --lake:#2E7D6B;
+    --brick:#B5533C;
+    --shadow: 0 6px 18px rgba(31,58,95,0.14), 0 1px 3px rgba(31,58,95,0.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(217,164,65,0.10), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(46,125,107,0.10), transparent 45%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Lora', Georgia, serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  /* ============ NAV ============ */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background: rgba(237,230,214,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid rgba(31,58,95,0.18);
+    display:flex; justify-content:center; gap:4px;
+    padding:10px 12px;
+    flex-wrap:wrap;
+  }
+  nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; font-weight:600; letter-spacing:0.04em;
+    text-decoration:none; color:var(--ink-soft);
+    padding:7px 13px; border-radius:20px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  nav a:hover{ background:var(--ink); color:var(--paper); }
+  .nav-links{ display:flex; gap:4px; flex-wrap:wrap; justify-content:center; }
+  .dayof-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; font-weight:600; letter-spacing:0.04em;
+    cursor:pointer; color:var(--paper); background:var(--brick);
+    border:1.5px solid var(--brick); padding:7px 14px; border-radius:20px;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .dayof-btn:hover{ transform:translateY(-1px); }
+  .dayof-btn[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); }
+
+  /* ============ DAY-OF PANEL ============ */
+  .dayof-panel{ display:none; max-width:640px; margin:0 auto; padding:40px 20px 20px; }
+  body.day-of .dayof-panel{ display:block; }
+  /* In day-of mode, collapse everything except the panel + toggle */
+  body.day-of header,
+  body.day-of #map,
+  body.day-of #plan,
+  body.day-of #kids,
+  body.day-of #know,
+  body.day-of footer{ display:none; }
+  body.day-of .nav-links{ display:none; }
+
+  .dayof-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--brick); font-weight:600; text-align:center;
+  }
+  .dayof-clock{
+    text-align:center; font-family:'Oswald', sans-serif; font-weight:700;
+    text-transform:uppercase; font-size:clamp(24px,6vw,38px); margin:6px 0 22px;
+    letter-spacing:0.01em; line-height:1.1;
+  }
+  .dayof-card{
+    background:var(--card); border:1px solid rgba(31,58,95,0.14);
+    border-radius:8px; box-shadow:var(--shadow); padding:26px 24px;
+    border-left:6px solid var(--lake);
+  }
+  .dayof-card.t-drive{ border-left-color:var(--ink-soft); }
+  .dayof-card.t-city{ border-left-color:var(--brick); }
+  .dayof-card.t-temple{ border-left-color:var(--gold); }
+  .dayof-card.t-kids{ border-left-color:#7C5CBF; }
+  .dayof-card .dc-top{ display:flex; align-items:center; gap:14px; margin-bottom:4px; }
+  .dayof-card .dc-emoji{ font-size:38px; line-height:1; }
+  .dayof-card .dc-date{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:600;
+    letter-spacing:0.05em; color:var(--brick); text-transform:uppercase;
+  }
+  .dayof-card .dc-drive{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:600;
+    color:var(--paper); background:var(--ink-soft); border-radius:12px;
+    padding:3px 11px; letter-spacing:0.03em; display:inline-block; margin-top:6px;
+  }
+  .dayof-card h3{
+    font-family:'Oswald', sans-serif; font-size:24px; font-weight:600;
+    margin:14px 0 4px; text-transform:uppercase; letter-spacing:0.01em;
+  }
+  .dayof-card .maps-link{ font-size:12.5px; margin:2px 0 12px; }
+  .dayof-card .dc-what{ font-size:16px; line-height:1.6; color:#33312D; margin:8px 0 0; }
+  .dayof-card .dc-what b{ color:var(--ink); font-weight:600; }
+  .dayof-card .dc-stay{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--lake);
+    font-weight:600; margin-top:16px; letter-spacing:0.03em;
+    border-top:1px dashed rgba(31,58,95,0.25); padding-top:12px;
+  }
+  .dayof-nav{ display:flex; justify-content:space-between; gap:10px; margin-top:18px; }
+  .dayof-nav button{
+    flex:1; font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:0.04em; cursor:pointer; color:var(--ink-soft); background:transparent;
+    border:1.5px solid rgba(31,58,95,0.3); border-radius:4px; padding:9px 12px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .dayof-nav button:hover:not(:disabled){ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .dayof-nav button:disabled{ opacity:0.35; cursor:default; }
+
+  /* ============ HERO ============ */
+  header{ padding: 58px 20px 34px; text-align:center; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.24em; text-transform:uppercase;
+    color:var(--brick); font-weight:600;
+  }
+  h1{
+    font-family:'Oswald', sans-serif; font-weight:700; text-transform:uppercase;
+    font-size: clamp(30px, 6.5vw, 58px); letter-spacing:0.01em;
+    margin: 10px 0 6px; line-height:1.05;
+  }
+  h1 .arrow{ color:var(--gold); }
+  .dates{
+    font-family:'IBM Plex Mono', monospace; font-size:14px;
+    color:var(--ink-soft); letter-spacing:0.05em;
+  }
+  .tagline{
+    max-width:560px; margin:14px auto 0; font-style:italic;
+    color:var(--ink-soft); font-size:16px;
+  }
+
+  /* stats strip */
+  .stats{
+    max-width:760px; margin: 30px auto 0;
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:0;
+    border-top:1px dashed rgba(31,58,95,0.3);
+    border-bottom:1px dashed rgba(31,58,95,0.3);
+  }
+  .stat{ padding: 16px 8px; text-align:center; }
+  .stat + .stat{ border-left:1px dashed rgba(31,58,95,0.3); }
+  .stat .num{
+    font-family:'Oswald', sans-serif; font-size:30px; font-weight:700; color:var(--ink);
+  }
+  .stat .lbl{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-soft); margin-top:2px;
+  }
+  .cta-row{ margin-top:26px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:0.04em; text-decoration:none; padding:12px 20px; border-radius:3px;
+    display:inline-flex; align-items:center; gap:8px; border:1.5px solid var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:var(--shadow); }
+  .btn-solid{ background:var(--ink); color:var(--paper); }
+
+  /* ============ SECTION SCAFFOLD ============ */
+  section{ max-width:960px; margin:0 auto; padding: 46px 20px 10px; }
+  .sec-head{ text-align:center; margin-bottom:26px; }
+  .sec-head .kicker{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--brick); font-weight:600;
+  }
+  .sec-head h2{
+    font-family:'Oswald', sans-serif; font-weight:600; text-transform:uppercase;
+    font-size:28px; margin:6px 0 0; letter-spacing:0.02em;
+  }
+  .sec-head .sub{ font-style:italic; color:var(--ink-soft); font-size:14.5px; margin-top:6px; }
+
+  /* ============ ROUTE MAP ============ */
+  .map-card{
+    background:var(--card);
+    border:1px solid rgba(31,58,95,0.14);
+    border-radius:8px; box-shadow:var(--shadow);
+    padding: 10px;
+  }
+  .map-svg-wrap{ width:100%; }
+  .map-svg-wrap svg{ width:100%; height:auto; display:block; }
+  .map-pin{ cursor:pointer; }
+  .map-pin circle.halo{ fill:transparent; }
+  .map-pin:hover circle.ring{ stroke:var(--brick); }
+  .map-pin text.emoji{ font-size:20px; }
+  .map-pin text.mlabel{
+    font-family:'Oswald', sans-serif; font-weight:600; font-size:13.5px;
+    fill:var(--ink); text-transform:uppercase; letter-spacing:0.02em;
+  }
+  .map-pin text.mdate{
+    font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:10px; fill:var(--brick);
+  }
+  .map-note{
+    text-align:center; font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--ink-soft); padding:8px 0 6px; letter-spacing:0.03em;
+  }
+
+  /* ============ TIMELINE ============ */
+  .road-wrap{ position:relative; padding: 10px 0 10px; }
+  .road-line{
+    position:absolute; top:0; bottom:0; left:33px; width:6px;
+    background:var(--asphalt); border-radius:3px;
+  }
+  .road-line::after{
+    content:""; position:absolute; top:0; bottom:0; left:50%; width:2px;
+    transform:translateX(-50%);
+    background-image: repeating-linear-gradient(to bottom, var(--gold) 0 14px, transparent 14px 26px);
+  }
+  .phase-tag{
+    position:relative; margin: 26px 0 18px 84px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:600;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--lake);
+  }
+  .phase-tag::before{
+    content:""; position:absolute; left:-50px; top:50%; width:38px; height:1px;
+    background: var(--lake); opacity:0.6;
+  }
+  .stop{ position:relative; padding-left:84px; margin-bottom:22px; }
+  .marker{
+    position:absolute; left:13px; top:4px; width:46px; height:46px; border-radius:50%;
+    background:var(--paper); border:3px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-size:20px;
+    z-index:2; box-shadow:var(--shadow);
+  }
+  .card{
+    background:var(--card); border:1px solid rgba(31,58,95,0.14);
+    border-radius:6px; padding:15px 18px; box-shadow:var(--shadow);
+    border-left:5px solid var(--lake);
+    transition: transform 0.15s ease;
+  }
+  .card:hover{ transform:translateY(-2px); }
+  .stop.t-drive .card{ border-left-color:var(--ink-soft); }
+  .stop.t-city .card{ border-left-color:var(--brick); }
+  .stop.t-temple .card{ border-left-color:var(--gold); }
+  .stop.t-kids .card{ border-left-color:#7C5CBF; }
+  .row1{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+  .date-badge{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:0.05em; color:var(--brick); text-transform:uppercase; white-space:nowrap;
+  }
+  .drive-chip{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:600;
+    color:var(--paper); background:var(--ink-soft); border-radius:12px; padding:2px 9px;
+    letter-spacing:0.03em;
+  }
+  .card h3{
+    font-family:'Oswald', sans-serif; font-size:18.5px; font-weight:600;
+    margin:4px 0 2px; text-transform:uppercase; letter-spacing:0.01em;
+  }
+  .maps-link{
+    display:inline-flex; align-items:center; gap:5px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; font-weight:600;
+    text-decoration:none; color:var(--ink-soft);
+    border-bottom:1px dotted var(--ink-soft); margin:2px 0 6px;
+  }
+  .maps-link:hover{ color:var(--brick); border-color:var(--brick); }
+  .do-line{ font-size:14.5px; line-height:1.55; color:#33312D; margin:4px 0 0; }
+  .do-line b{ color:var(--ink); font-weight:600; }
+  .stay-line{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--lake);
+    font-weight:600; margin-top:8px; letter-spacing:0.03em;
+  }
+
+  /* ============ KID DAYS PICKER ============ */
+  .kid-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px;
+  }
+  .kid-card{
+    background:var(--card); border:1px solid rgba(31,58,95,0.14); border-radius:6px;
+    box-shadow:var(--shadow); padding:16px 18px; border-top:4px solid #7C5CBF;
+    transition:transform 0.15s ease;
+  }
+  .kid-card:hover{ transform:translateY(-3px); }
+  .kid-card .kc-emoji{ font-size:26px; }
+  .kid-card h4{
+    font-family:'Oswald', sans-serif; font-size:17px; font-weight:600;
+    text-transform:uppercase; margin:6px 0 2px;
+  }
+  .kid-card .kc-meta{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--brick);
+    font-weight:600; letter-spacing:0.05em; text-transform:uppercase;
+  }
+  .kid-card p{ font-size:13.5px; line-height:1.55; color:#33312D; margin:8px 0 0; }
+
+  /* ============ KNOW BEFORE YOU GO ============ */
+  .know-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; }
+  .know-card{
+    background:var(--card); border:1px solid rgba(31,58,95,0.14); border-radius:6px;
+    box-shadow:var(--shadow); padding:16px 18px;
+  }
+  .know-card h4{
+    font-family:'Oswald', sans-serif; font-size:15.5px; font-weight:600;
+    text-transform:uppercase; margin:0 0 8px; display:flex; align-items:center; gap:8px;
+  }
+  .know-card ul{ margin:0; padding-left:18px; font-size:13.8px; line-height:1.6; color:#33312D; }
+  .know-card li{ margin-bottom:4px; }
+
+  footer{
+    text-align:center; padding: 46px 20px 44px; margin-top:30px;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+    letter-spacing:0.03em; border-top:1px dashed rgba(31,58,95,0.3);
+  }
+
+  @media (max-width:560px){
+    .road-line{ left:23px; }
+    .stop{ padding-left:64px; }
+    .marker{ left:3px; width:40px; height:40px; font-size:17px; }
+    .phase-tag{ margin-left:64px; }
+    .stats{ grid-template-columns:repeat(2, 1fr); }
+    .stat:nth-child(3){ border-left:none; border-top:1px dashed rgba(31,58,95,0.3); }
+    .stat:nth-child(4){ border-top:1px dashed rgba(31,58,95,0.3); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-links">
+    <a href="#map">Route Map</a>
+    <a href="#plan">Day-by-Day</a>
+    <a href="#kids">Kid Days</a>
+    <a href="#know">Know Before You Go</a>
+  </span>
+  <button id="dayofToggle" class="dayof-btn" type="button" aria-pressed="false">📍 Day-of</button>
+</nav>
+
+<!-- ============ DAY-OF PANEL ============ -->
+<section id="dayof" class="dayof-panel" aria-live="polite"></section>
+
+<header>
+  <div class="eyebrow">Family Road Trip · Summer 2026</div>
+  <h1>Pittsburgh <span class="arrow">⇄</span> Toronto <span class="arrow">⇄</span> DC</h1>
+  <div class="dates">JULY 30 — AUGUST 12, 2026</div>
+  <p class="tagline">Falls, a lake, a temple, monuments, a mountain — and the kids. One page, the whole trip.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="num">14</div><div class="lbl">Days</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">Countries</div></div>
+    <div class="stat"><div class="num">~1,700</div><div class="lbl">Miles</div></div>
+    <div class="stat"><div class="num">1</div><div class="lbl">National Park</div></div>
+  </div>
+
+  <div class="cta-row">
+    <a class="btn btn-solid" href="https://www.google.com/maps/dir/?api=1&origin=316+Stoneridge+Ln,+Seven+Fields,+PA+16046&destination=316+Stoneridge+Ln,+Seven+Fields,+PA+16046&waypoints=Niagara+Falls,+NY|40+Zelda+Rd,+Brampton,+ON+L6R+0B6,+Canada|Grand+Bend,+ON,+Canada|40+Zelda+Rd,+Brampton,+ON+L6R+0B6,+Canada|316+Stoneridge+Ln,+Seven+Fields,+PA+16046|Washington,+DC|Shenandoah+National+Park,+Front+Royal,+VA" target="_blank" rel="noopener">🗺️ Open full route in Google Maps</a>
+  </div>
+  <p class="mono" style="margin-top:18px; font-size:12px; color:var(--ink-soft); letter-spacing:0.04em;">
+    ✈️ OUT: AS 77 · SEA→PIT · JUL 30, 10:37 PM (red-eye) &nbsp;·&nbsp; ✈️ BACK: AS 412 · PIT→SEA · AUG 12, 6:10 PM
+  </p>
+</header>
+
+<!-- ============ ROUTE MAP ============ -->
+<section id="map">
+  <div class="sec-head">
+    <div class="kicker">The Shape of It</div>
+    <h2>Route Map</h2>
+    <div class="sub">Tap any pin to open it in Google Maps.</div>
+  </div>
+  <div class="map-card">
+    <div class="map-svg-wrap">
+      <svg viewBox="0 0 900 640" xmlns="http://www.w3.org/2000/svg" aria-label="Schematic route map">
+        <!-- route path: Pittsburgh -> Niagara -> Toronto -> Grand Bend -> (back) Toronto -> Pittsburgh -> DC -> Shenandoah -> Pittsburgh -->
+        <path d="M330,390 L512,170 L390,105 L120,150"
+              fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-linecap="round"/>
+        <path d="M390,105 L330,390"
+              fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-linecap="round" opacity="0.55"/>
+        <path d="M330,390 L790,520 L640,468"
+              fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-linecap="round"/>
+        <path d="M640,468 L330,390"
+              fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-linecap="round" opacity="0.5"/>
+
+        <!-- water hints -->
+        <text x="60" y="115" font-size="11" fill="#2E7D6B" font-style="italic" font-family="Georgia">Lake Huron</text>
+        <text x="475" y="130" font-size="11" fill="#2E7D6B" font-style="italic" font-family="Georgia">Lake Ontario</text>
+
+        <!-- PINS (emoji circle + label). Each wrapped in <a> to Google Maps -->
+        <!-- Grand Bend -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Grand+Bend+Beach+Ontario" target="_blank" rel="noopener"><g class="map-pin">
+          <circle class="ring" cx="120" cy="150" r="22" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="2.5"/>
+          <text class="emoji" x="120" y="158" text-anchor="middle">🏖️</text>
+          <text class="mlabel" x="120" y="192" text-anchor="middle">Grand Bend</text>
+          <text class="mdate" x="120" y="206" text-anchor="middle">AUG 2 · beach day</text>
+        </g></a>
+        <!-- Toronto -->
+        <a href="https://www.google.com/maps/search/?api=1&query=CN+Tower+Toronto" target="_blank" rel="noopener"><g class="map-pin">
+          <circle class="ring" cx="390" cy="105" r="22" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="2.5"/>
+          <text class="emoji" x="390" y="113" text-anchor="middle">🏙️</text>
+          <text class="mlabel" x="390" y="68" text-anchor="middle">Toronto / Brampton</text>
+          <text class="mdate" x="390" y="82" text-anchor="middle">AUG 1–3</text>
+        </g></a>
+        <!-- Niagara -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Niagara+Falls" target="_blank" rel="noopener"><g class="map-pin">
+          <circle class="ring" cx="512" cy="170" r="22" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="2.5"/>
+          <text class="emoji" x="512" y="178" text-anchor="middle">🌊</text>
+          <text class="mlabel" x="560" y="168" text-anchor="start">Niagara Falls</text>
+          <text class="mdate" x="560" y="182" text-anchor="start">AUG 1 · en route</text>
+        </g></a>
+        <!-- Pittsburgh -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Pittsburgh,+PA" target="_blank" rel="noopener"><g class="map-pin">
+          <circle class="ring" cx="330" cy="390" r="26" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="3"/>
+          <text class="emoji" x="330" y="399" text-anchor="middle">🏠</text>
+          <text class="mlabel" x="292" y="390" text-anchor="end">Pittsburgh · Base</text>
+          <text class="mdate" x="292" y="404" text-anchor="end">JUL 30–31 · AUG 4–5 · AUG 9–12</text>
+        </g></a>
+        <!-- DC -->
+        <a href="https://www.google.com/maps/search/?api=1&query=National+Mall+Washington+DC" target="_blank" rel="noopener"><g class="map-pin">
+          <circle class="ring" cx="790" cy="520" r="22" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="2.5"/>
+          <text class="emoji" x="790" y="528" text-anchor="middle">🏛️</text>
+          <text class="mlabel" x="790" y="562" text-anchor="middle">Washington DC</text>
+          <text class="mdate" x="790" y="576" text-anchor="middle">AUG 6–7</text>
+        </g></a>
+        <!-- Shenandoah -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Shenandoah+National+Park+Front+Royal" target="_blank" rel="noopener"><g class="map-pin">
+          <circle class="ring" cx="640" cy="468" r="22" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="2.5"/>
+          <text class="emoji" x="640" y="476" text-anchor="middle">🥾</text>
+          <text class="mlabel" x="640" y="428" text-anchor="middle">Shenandoah NP</text>
+          <text class="mdate" x="640" y="442" text-anchor="middle">AUG 8 · Skyline Drive</text>
+        </g></a>
+      </svg>
+    </div>
+    <div class="map-note">Gold = outbound legs · Green = return to base · Not to scale (obviously)</div>
+  </div>
+</section>
+
+<!-- ============ DAY BY DAY ============ -->
+<section id="plan">
+  <div class="sec-head">
+    <div class="kicker">The Full Plan</div>
+    <h2>Day-by-Day</h2>
+    <div class="sub">Every stop links straight to Google Maps.</div>
+  </div>
+
+  <div class="road-wrap">
+    <div class="road-line"></div>
+    <div id="stops"></div>
+  </div>
+</section>
+
+<!-- ============ KID DAYS ============ -->
+<section id="kids">
+  <div class="sec-head">
+    <div class="kicker">Aug 10–12 · Back at Base</div>
+    <h2>Kid Days — Pick 3</h2>
+    <div class="sub">Easy local outings from Seven Fields to close out the trip. Mix &amp; match.</div>
+  </div>
+  <div class="kid-grid">
+    <div class="kid-card">
+      <span class="kc-emoji">🚀</span>
+      <h4>Kamin Science Center</h4>
+      <div class="kc-meta">~30 min · North Shore</div>
+      <p>Hands-on everything: space exhibits, a giant model railroad, and a real WWII submarine (USS Requin) you can tour. Easily a half-day.</p>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Kamin+Science+Center+Pittsburgh" target="_blank" rel="noopener">📍 Open in Maps</a>
+    </div>
+    <div class="kid-card">
+      <span class="kc-emoji">🦁</span>
+      <h4>Pittsburgh Zoo &amp; Aquarium</h4>
+      <div class="kc-meta">~35 min · Highland Park</div>
+      <p>Zoo + aquarium in one ticket, with robotic dinosaurs around the park for the 2026 season. Go early on a weekday to beat crowds. Hilly — wear good shoes.</p>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Pittsburgh+Zoo+and+Aquarium" target="_blank" rel="noopener">📍 Open in Maps</a>
+    </div>
+    <div class="kid-card">
+      <span class="kc-emoji">🎢</span>
+      <h4>Kennywood</h4>
+      <div class="kc-meta">~40 min · West Mifflin</div>
+      <p>Historic amusement park — century-old wooden coasters next to modern ones, plus a proper kiddie area. Best as a full day; evenings have drone shows.</p>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Kennywood+West+Mifflin+PA" target="_blank" rel="noopener">📍 Open in Maps</a>
+    </div>
+    <div class="kid-card">
+      <span class="kc-emoji">🎨</span>
+      <h4>Children's Museum</h4>
+      <div class="kc-meta">~30 min · North Side</div>
+      <p>Best for younger kids — the water play floor is the star (pack a change of clothes, seriously). Pairs well with the Science Center next door.</p>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Children%27s+Museum+of+Pittsburgh" target="_blank" rel="noopener">📍 Open in Maps</a>
+    </div>
+    <div class="kid-card">
+      <span class="kc-emoji">💧</span>
+      <h4>Ohiopyle + Fallingwater</h4>
+      <div class="kc-meta">~1.5 hrs · Laurel Highlands</div>
+      <p>Natural waterslides and easy waterfall walks at Ohiopyle, with Frank Lloyd Wright's Fallingwater nearby (book tour slots ahead — they sell out; closed Wednesdays).</p>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Ohiopyle+State+Park" target="_blank" rel="noopener">📍 Open in Maps</a>
+    </div>
+    <div class="kid-card">
+      <span class="kc-emoji">🚋</span>
+      <h4>Duquesne Incline</h4>
+      <div class="kc-meta">~30 min · Mt. Washington</div>
+      <p>A short century-old cable car ride kids love, ending at the best skyline view in Pittsburgh. Quick outing — great to pair with ice cream or an evening.</p>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Duquesne+Incline+Pittsburgh" target="_blank" rel="noopener">📍 Open in Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KNOW BEFORE YOU GO ============ -->
+<section id="know">
+  <div class="sec-head">
+    <div class="kicker">Logistics</div>
+    <h2>Know Before You Go</h2>
+  </div>
+  <div class="know-grid">
+    <div class="know-card">
+      <h4>🛂 Border Crossing</h4>
+      <ul>
+        <li>Passports for <b>everyone, including kids</b></li>
+        <li>Crossing Aug 1 (into Canada) &amp; Aug 4 (back into the US)</li>
+        <li>Rainbow Bridge at Niagara is the scenic crossing</li>
+        <li>Declare any food/produce in the car</li>
+      </ul>
+    </div>
+    <div class="know-card">
+      <h4>🎟️ Book Ahead</h4>
+      <ul>
+        <li><b>Fallingwater tours</b> — timed slots, sell out; closed Wed</li>
+        <li><b>CN Tower</b> — buy tickets online to skip lines</li>
+        <li><b>Shenandoah</b> — per-vehicle entrance fee; Old Rag hike needs a separate day-use ticket</li>
+        <li><b>Kennywood</b> — cheaper online than at the gate</li>
+      </ul>
+    </div>
+    <div class="know-card">
+      <h4>🏖️ Grand Bend Tips</h4>
+      <ul>
+        <li>Arrive early — parking fills fast on summer Sundays</li>
+        <li>Paid parking (free after 6pm)</li>
+        <li>No tents on the beach; umbrellas OK</li>
+        <li>Stay for sunset — it's the whole point</li>
+      </ul>
+    </div>
+    <div class="know-card">
+      <h4>🚗 Drive-Day Rhythm</h4>
+      <ul>
+        <li>House rule: wheels rolling by <b>5–6am</b> on big drive days</li>
+        <li>Longest leg: Brampton → Pittsburgh (~5 hrs)</li>
+        <li>Skyline Drive is 35 mph and winding — it's the destination, not a shortcut</li>
+        <li>Watch for deer at dawn/dusk near Shenandoah</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  PITTSBURGH ⇄ TORONTO ⇄ DC · SUMMER 2026 · MADE WITH ☕ AND A SPREADSHEET
+</footer>
+
+<script>
+const TRIP_YEAR = 2026;
+const MONTHS = { JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11 };
+
+const stops = [
+  { phase: "Getting There",
+    date:"JUL 30 · THU", icon:"✈️", type:"drive", drive:"red-eye",
+    title:"Fly SEA → PIT", place:"Seattle-Tacoma Airport", q:"Seattle-Tacoma International Airport",
+    what:"<b>Alaska AS 77</b>, departs <b>10:37 PM PDT</b>. Red-eye — sleep on the plane if you can. Kids in comfy layers.",
+    stay:"🌙 In the air"
+  },
+  { date:"JUL 31 · FRI", icon:"🏠", type:"stay", drive:null,
+    title:"Land Early + Easy Pittsburgh Day", place:"Seven Fields, PA", q:"316 Stoneridge Ln, Seven Fields, PA 16046",
+    what:"Land <b>6:10 AM EDT</b>, head to Pradeep's, naps all around. If energy returns by evening: <b>Duquesne Incline</b> at sunset or Strip District dinner. Keep it light — big drive tomorrow.",
+    stay:"🌙 Seven Fields — Pradeep's home"
+  },
+  { phase: "The Canada Leg",
+    date:"AUG 1 · SAT", icon:"🌊", type:"drive", drive:"~5 hrs + falls stop",
+    title:"Niagara Falls → Toronto", place:"Niagara Falls", q:"Niagara Falls",
+    what:"Early start. Falls stop mid-route — <b>Skylon Tower</b> view or get soaked on the boat. Cross into Canada, arrive Brampton by evening.",
+    stay:"🌙 Brampton — Revanth's home"
+  },
+  { date:"AUG 2 · SUN", icon:"🏖️", type:"beach", drive:"~2 hrs each way",
+    title:"Grand Bend Beach Day", place:"Lake Huron, ON", q:"Grand Bend Beach Ontario",
+    what:"Day trip with friends. Soft sand, warm shallow water for the kids, food stalls on the strip — and one of Ontario's best <b>sunsets</b>.",
+    stay:"🌙 Brampton"
+  },
+  { date:"AUG 3 · MON", icon:"🏙️", type:"city", drive:null,
+    title:"Toronto Day", place:"Toronto, ON", q:"CN Tower Toronto",
+    what:"<b>CN Tower</b> glass floor (kid favorite), <b>Kensington Market</b> snacks, Distillery District, or the Toronto Islands ferry if the weather's good.",
+    stay:"🌙 Brampton"
+  },
+  { phase: "Back at Base",
+    date:"AUG 4 · TUE", icon:"🚗", type:"drive", drive:"~5 hrs · leave 5-6am",
+    title:"Drive Back to Pittsburgh", place:"Seven Fields, PA", q:"316 Stoneridge Ln, Seven Fields, PA 16046",
+    what:"Dawn departure, back by late morning. Easy afternoon — everyone recovers.",
+    stay:"🌙 Seven Fields — Pradeep's home"
+  },
+  { date:"AUG 5 · WED", icon:"🛕", type:"temple", drive:"~40 min",
+    title:"Temple Day", place:"Sri Venkateswara Temple, Penn Hills", q:"Sri Venkateswara Temple Penn Hills PA",
+    what:"Morning darshan at <b>Sri Venkateswara Temple</b> — modeled on Tirupati. Eat at the temple canteen; grab laddoos for the road. (Card only, no cash.)",
+    stay:"🌙 Seven Fields"
+  },
+  { phase: "The DC Leg",
+    date:"AUG 6 · THU", icon:"🚗", type:"drive", drive:"~4 hrs",
+    title:"Drive to DC + Evening Monuments", place:"Washington, DC", q:"National Mall Washington DC",
+    what:"Arrive by afternoon. After dinner: the <b>monuments lit up at night</b> — Lincoln Memorial after dark is the move.",
+    stay:"🌙 Washington DC"
+  },
+  { date:"AUG 7 · FRI", icon:"🏛️", type:"city", drive:null,
+    title:"Full DC Day", place:"National Mall", q:"Smithsonian National Air and Space Museum",
+    what:"<b>Smithsonians are free</b> — Air &amp; Space and Natural History are the kid hits. Walk the Mall, Capitol grounds if energy allows. Weekday = smaller crowds.",
+    stay:"🌙 Washington DC"
+  },
+  { date:"AUG 8 · SAT", icon:"🥾", type:"hike", drive:"~2 hrs · leave early",
+    title:"Shenandoah National Park", place:"Skyline Drive", q:"Shenandoah National Park Front Royal",
+    what:"National Park ✅. Cruise <b>Skyline Drive</b> overlooks, easy family hikes: <b>Dark Hollow Falls</b> (waterfall) &amp; <b>Stony Man</b> (big view, small effort). Deer everywhere.",
+    stay:"🌙 Luray / Big Meadows area"
+  },
+  { date:"AUG 9 · SUN", icon:"🚗", type:"drive", drive:"~4 hrs",
+    title:"Morning in the Park → Back to Base", place:"Luray Caverns", q:"Luray Caverns",
+    what:"One more overlook or a quick <b>Luray Caverns</b> stop (huge underground caves — kids love it), then roll back to Pittsburgh by evening.",
+    stay:"🌙 Seven Fields"
+  },
+  { phase: "Kid Days · Wind-Down",
+    date:"AUG 10 · MON", icon:"🎢", type:"kids", drive:"local",
+    title:"Kid Day 1", place:"Pick from Kid Days below", q:"Kamin Science Center Pittsburgh",
+    what:"Pick from the <b>Kid Days</b> menu below — Science Center + Children's Museum pair well (they're next door to each other).",
+    stay:"🌙 Seven Fields"
+  },
+  { date:"AUG 11 · TUE", icon:"🦁", type:"kids", drive:"local",
+    title:"Kid Day 2", place:"Pick from Kid Days below", q:"Pittsburgh Zoo and Aquarium",
+    what:"Zoo &amp; Aquarium morning (beat the heat), or make it the big <b>Kennywood</b> day if the kids are up for coasters.",
+    stay:"🌙 Seven Fields"
+  },
+  { date:"AUG 12 · WED", icon:"✈️", type:"kids", drive:"fly 6:10 PM",
+    title:"One Last Thing + Fly Home", place:"Pittsburgh Airport", q:"Pittsburgh International Airport",
+    what:"Short morning outing — <b>Duquesne Incline</b> + ice cream is a perfect goodbye — then <b>PIT → SEA on AS 412 at 6:10 PM EDT</b> (at the airport by ~4 PM). Land Seattle <b>8:30 PM PDT</b>.",
+    stay:"🏡 Home in Seattle"
+  }
+];
+
+const container = document.getElementById('stops');
+stops.forEach(s => {
+  if (s.phase){
+    const tag = document.createElement('div');
+    tag.className = 'phase-tag';
+    tag.textContent = s.phase;
+    container.appendChild(tag);
+  }
+  const el = document.createElement('div');
+  el.className = `stop t-${s.type}`;
+  el.innerHTML = `
+    <div class="marker">${s.icon}</div>
+    <div class="card">
+      <div class="row1">
+        <span class="date-badge">${s.date}</span>
+        ${s.drive ? `<span class="drive-chip">🚗 ${s.drive}</span>` : ``}
+      </div>
+      <h3>${s.title}</h3>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">📍 ${s.place} — open in Maps</a>
+      <p class="do-line">${s.what}</p>
+      <div class="stay-line">${s.stay}</div>
+    </div>
+  `;
+  container.appendChild(el);
+});
+
+/* ============ DAY-OF MODE ============ */
+// Parse a stop's "AUG 1 · SAT" label into a local Date at midnight.
+function stopDate(s){
+  const m = s.date.match(/([A-Z]{3})\s+(\d+)/);
+  return new Date(TRIP_YEAR, MONTHS[m[1]], parseInt(m[2], 10));
+}
+function ymd(d){ return d.getFullYear()*10000 + d.getMonth()*100 + d.getDate(); }
+
+const dayPanel  = document.getElementById('dayof');
+const dayToggle = document.getElementById('dayofToggle');
+const dayNums   = stops.map(s => ymd(stopDate(s)));
+
+let dayIdx = 0;      // which stop the panel is showing
+let realTodayIdx;    // index of the actual current day, or -1 if outside the trip
+
+function computeToday(){
+  const now = new Date();
+  const t = ymd(new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+  realTodayIdx = dayNums.indexOf(t);
+  if (realTodayIdx !== -1) return { idx: realTodayIdx, state:'today' };
+  if (t < dayNums[0])      return { idx: 0, state:'before', days: Math.round((stopDate(stops[0]) - now) / 86400000) };
+  return { idx: stops.length - 1, state:'after' };
+}
+
+const fmtToday = () => {
+  const d = new Date();
+  const wk = ['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getDay()];
+  const mo = Object.keys(MONTHS)[d.getMonth()];
+  return `${wk} · ${mo} ${d.getDate()}, ${d.getFullYear()}`;
+};
+
+function renderDayOf(){
+  const info = computeToday();
+  // If the panel hasn't been positioned yet this open, snap to the computed day.
+  if (dayIdx == null) dayIdx = info.idx;
+
+  let banner;
+  if (info.state === 'before' && dayIdx === info.idx){
+    const n = info.days;
+    banner = `T-minus ${n} day${n===1?'':'s'} · previewing the first stop`;
+  } else if (info.state === 'after' && dayIdx === info.idx){
+    banner = `The trip's a wrap 🎉 · here's how it ended`;
+  } else if (dayIdx === realTodayIdx){
+    banner = `Today · Stop ${dayIdx+1} of ${stops.length}`;
+  } else {
+    banner = `Preview · Stop ${dayIdx+1} of ${stops.length}`;
+  }
+
+  const s = stops[dayIdx];
+  dayPanel.innerHTML = `
+    <div class="dayof-eyebrow">${banner}</div>
+    <div class="dayof-clock">${fmtToday()}</div>
+    <div class="dayof-card t-${s.type}">
+      <div class="dc-top">
+        <span class="dc-emoji">${s.icon}</span>
+        <span class="dc-date">${s.date}</span>
+      </div>
+      ${s.drive ? `<span class="dc-drive">🚗 ${s.drive}</span>` : ``}
+      <h3>${s.title}</h3>
+      <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">📍 ${s.place} — open in Maps</a>
+      <p class="dc-what">${s.what}</p>
+      <div class="dc-stay">${s.stay}</div>
+    </div>
+    <div class="dayof-nav">
+      <button id="dayPrev" ${dayIdx===0?'disabled':''}>← Prev day</button>
+      ${realTodayIdx!==-1 && dayIdx!==realTodayIdx ? `<button id="dayNow">Jump to today</button>` : ``}
+      <button id="dayNext" ${dayIdx===stops.length-1?'disabled':''}>Next day →</button>
+    </div>
+  `;
+
+  const prev = document.getElementById('dayPrev');
+  const next = document.getElementById('dayNext');
+  const now  = document.getElementById('dayNow');
+  if (prev) prev.onclick = () => { if (dayIdx>0){ dayIdx--; renderDayOf(); } };
+  if (next) next.onclick = () => { if (dayIdx<stops.length-1){ dayIdx++; renderDayOf(); } };
+  if (now)  now.onclick  = () => { dayIdx = realTodayIdx; renderDayOf(); };
+}
+
+function setDayOf(on){
+  document.body.classList.toggle('day-of', on);
+  dayToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+  dayToggle.textContent = on ? '✕ Full plan' : '📍 Day-of';
+  if (on){ dayIdx = null; renderDayOf(); window.scrollTo(0, 0); }
+  try { localStorage.setItem('tripDayOf', on ? '1' : '0'); } catch(e){}
+}
+
+dayToggle.addEventListener('click', () => {
+  setDayOf(!document.body.classList.contains('day-of'));
+});
+
+// Restore last mode; auto-open day-of if today falls within the trip window.
+(function initDayOf(){
+  let saved = null;
+  try { saved = localStorage.getItem('tripDayOf'); } catch(e){}
+  computeToday();
+  if (saved === '1' || (saved === null && realTodayIdx !== -1)) setDayOf(true);
+})();
+</script>
+
+</body>
+</html>
