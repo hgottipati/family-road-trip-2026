@@ -233,6 +233,17 @@
     content:""; position:absolute; left:-50px; top:50%; width:38px; height:1px;
     background: var(--lake); opacity:0.6;
   }
+  .day-bar{
+    position:relative; z-index:3;
+    margin:16px 0 14px; padding:9px 16px;
+    background:rgba(31,58,95,0.06);
+    border-top:1px solid rgba(31,58,95,0.12);
+    border-bottom:1px solid rgba(31,58,95,0.12);
+    border-radius:3px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:600; letter-spacing:0.03em;
+    color:var(--ink);
+  }
   .stop{ position:relative; padding-left:84px; margin-bottom:22px; }
   .marker{
     position:absolute; left:13px; top:4px; width:46px; height:46px; border-radius:50%;
@@ -639,6 +650,12 @@ const stops = [
 ];
 
 const container = document.getElementById('stops');
+// "JUL 30 · THU" -> "Thu, Jul 30"  (day-header bar, TripIt-style)
+const _tc = w => w.charAt(0) + w.slice(1).toLowerCase();
+function dayBarLabel(dateStr){
+  const m = dateStr.match(/([A-Z]{3})\s+(\d+)\s*·\s*([A-Z]{3})/);
+  return m ? `${_tc(m[3])}, ${_tc(m[1])} ${m[2]}` : dateStr;
+}
 stops.forEach(s => {
   if (s.phase){
     const tag = document.createElement('div');
@@ -646,15 +663,17 @@ stops.forEach(s => {
     tag.textContent = s.phase;
     container.appendChild(tag);
   }
+  const bar = document.createElement('div');
+  bar.className = 'day-bar';
+  bar.textContent = dayBarLabel(s.date);
+  container.appendChild(bar);
+
   const el = document.createElement('div');
   el.className = `stop t-${s.type}`;
   el.innerHTML = `
     <div class="marker">${s.icon}</div>
     <div class="card">
-      <div class="row1">
-        <span class="date-badge">${s.date}</span>
-        ${s.drive ? `<span class="drive-chip">🚗 ${s.drive}</span>` : ``}
-      </div>
+      ${s.drive ? `<div class="row1"><span class="drive-chip">🚗 ${s.drive}</span></div>` : ``}
       <h3>${s.title}</h3>
       <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.q)}" target="_blank" rel="noopener">📍 ${s.place} — open in Maps</a>
       <p class="do-line">${s.what}</p>
