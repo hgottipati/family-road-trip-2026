@@ -281,11 +281,11 @@ letter-spacing:0.03em; border-top:1px dashed rgba(31,58,95,0.3);
 <div class="stats">
 <div class="stat"><div class="num">14</div><div class="lbl">Days</div></div>
 <div class="stat"><div class="num">2</div><div class="lbl">Countries</div></div>
-<div class="stat"><div class="num">~1,800</div><div class="lbl">Miles</div></div>
+<div class="stat"><div class="num">~1,700</div><div class="lbl">Miles</div></div>
 <div class="stat"><div class="num">1</div><div class="lbl">National Park</div></div>
 </div>
 <div class="cta-row">
-<a class="btn btn-solid" href="https://www.google.com/maps/dir/?api=1&origin=316+Stoneridge+Ln,+Seven+Fields,+PA+16046&destination=316+Stoneridge+Ln,+Seven+Fields,+PA+16046&waypoints=Niagara+Falls,+NY|40+Zelda+Rd,+Brampton,+ON+L6R+0B6,+Canada|Grand+Bend,+ON,+Canada|40+Zelda+Rd,+Brampton,+ON+L6R+0B6,+Canada|316+Stoneridge+Ln,+Seven+Fields,+PA+16046|Washington,+DC|Shenandoah+National+Park,+Front+Royal,+VA|Hershey,+PA" target="_blank" rel="noopener">🗺️ Open full route in Google Maps</a>
+<a class="btn btn-solid" href="https://www.google.com/maps/dir/?api=1&origin=316+Stoneridge+Ln,+Seven+Fields,+PA+16046&destination=316+Stoneridge+Ln,+Seven+Fields,+PA+16046&waypoints=Niagara+Falls,+NY|40+Zelda+Rd,+Brampton,+ON+L6R+0B6,+Canada|Grand+Bend,+ON,+Canada|40+Zelda+Rd,+Brampton,+ON+L6R+0B6,+Canada|316+Stoneridge+Ln,+Seven+Fields,+PA+16046|Washington,+DC|Shenandoah+National+Park,+Front+Royal,+VA" target="_blank" rel="noopener">🗺️ Open full route in Google Maps</a>
 </div>
 <p class="mono" style="margin-top:18px; font-size:12px; color:var(--ink-soft); letter-spacing:0.04em;">
 ✈️ OUT: AS 77 · SEA→PIT · JUL 30, 10:37 PM (red-eye) &nbsp;·&nbsp; ✈️ BACK: AS 412 · PIT→SEA · AUG 12, 6:10 PM
@@ -348,16 +348,28 @@ fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-lin
 <!-- Pittsburgh → DC (gold outbound, going SE) -->
 <path d="M330,390 L800,548"
 fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-linecap="round"/>
-<!-- DC → Shenandoah → Hershey (gold, looping back north — same latitude as DC then NE to Hershey) -->
-<path d="M800,548 L575,548 L730,372"
+<!-- DC → Shenandoah (gold, same latitude band going west) -->
+<path d="M800,548 L575,548"
 fill="none" stroke="#D9A441" stroke-width="4" stroke-dasharray="2 11" stroke-linecap="round" opacity="0.8"/>
-<!-- Hershey → Pittsburgh (green return, heading west at Pittsburgh's latitude) -->
-<path d="M730,372 L330,390"
+<!-- Shenandoah → Pittsburgh (green return, heading NW) -->
+<path d="M575,548 L330,390"
 fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-linecap="round" opacity="0.7"/>
+<!-- Pittsburgh ↔ Erie/Presque Isle — weekend from base, thin dotted to distinguish -->
+<path d="M330,390 L302,254"
+fill="none" stroke="#2E7D6B" stroke-width="1.5" stroke-dasharray="3 9" stroke-linecap="round" opacity="0.4"/>
 
 <!-- water hints -->
 <text x="60" y="115" font-size="11" fill="#2E7D6B" font-style="italic" font-family="Georgia">Lake Huron</text>
 <text x="475" y="130" font-size="11" fill="#2E7D6B" font-style="italic" font-family="Georgia">Lake Ontario</text>
+<text x="418" y="216" font-size="11" fill="#2E7D6B" font-style="italic" font-family="Georgia">Lake Erie</text>
+
+<!-- Erie / Presque Isle — weekend from base, dashed border to distinguish from trip stops -->
+<a href="https://www.google.com/maps/search/?api=1&query=Presque+Isle+State+Park+Erie+PA" target="_blank" rel="noopener"><g class="map-pin">
+<circle cx="302" cy="254" r="18" fill="#FBF8F1" stroke="#2E7D6B" stroke-width="2" stroke-dasharray="4 3"/>
+<text font-size="16" x="302" y="261" text-anchor="middle">🎣</text>
+<text class="mlabel" x="280" y="250" text-anchor="end" font-size="12">Erie · Presque Isle</text>
+<text class="mdate" x="280" y="263" text-anchor="end">weekend from base</text>
+</g></a>
 
 <!-- ── Drive time labels — midpoint of each leg, offset off the dashed line ── -->
 <g style="pointer-events:none">
@@ -368,15 +380,15 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <!-- 3. Toronto → Grand Bend ~2 hrs -->
 <g transform="translate(255,113)"><rect x="-22" y="-9" width="44" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~2 hrs</text></g>
 <!-- 4. Toronto → Pittsburgh return ~5 hrs -->
-<g transform="translate(350,248)"><rect x="-22" y="-9" width="44" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~5 hrs</text></g>
+<g transform="translate(362,244)"><rect x="-22" y="-9" width="44" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~5 hrs</text></g>
+<!-- 4b. Pittsburgh ↔ Erie ~2 hrs (weekend) -->
+<g transform="translate(347,322)"><rect x="-22" y="-9" width="44" height="16" rx="8" fill="#EDE6D6" stroke="rgba(46,125,107,0.3)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#2E7D6B" text-anchor="middle" dominant-baseline="middle">~2 hrs</text></g>
 <!-- 5. Pittsburgh → DC ~4 hrs -->
 <g transform="translate(568,455)"><rect x="-22" y="-9" width="44" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~4 hrs</text></g>
 <!-- 6. DC → Shenandoah ~1.5 hrs -->
 <g transform="translate(690,534)"><rect x="-25" y="-9" width="50" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~1.5 hrs</text></g>
-<!-- 7. Shenandoah → Hershey ~2.5 hrs -->
-<g transform="translate(662,446)"><rect x="-25" y="-9" width="50" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~2.5 hrs</text></g>
-<!-- 8. Hershey → Pittsburgh ~3.5 hrs -->
-<g transform="translate(530,367)"><rect x="-28" y="-9" width="56" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~3.5 hrs</text></g>
+<!-- 7. Shenandoah → Pittsburgh ~4.5 hrs -->
+<g transform="translate(440,456)"><rect x="-28" y="-9" width="56" height="16" rx="8" fill="#EDE6D6" stroke="rgba(31,58,95,0.22)" stroke-width="0.8"/><text font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#B5533C" text-anchor="middle" dominant-baseline="middle">~4.5 hrs</text></g>
 </g>
 
 <!-- PINS -->
@@ -410,7 +422,7 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <circle class="ring" cx="330" cy="390" r="26" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="3"/>
 <text class="emoji" x="330" y="399" text-anchor="middle">🏠</text>
 <text class="mlabel" x="292" y="390" text-anchor="end">Pittsburgh · Base</text>
-<text class="mdate" x="292" y="404" text-anchor="end">JUL 30–31 · AUG 4–5 · AUG 10–12</text>
+<text class="mdate" x="292" y="404" text-anchor="end">JUL 30–31 · AUG 4–5 · AUG 9–12</text>
 </g></a>
 
 <!-- DC — far right, southern latitude band (same y as Shenandoah) -->
@@ -429,17 +441,10 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <text class="mdate" x="575" y="526" text-anchor="middle">AUG 8 · Skyline Drive</text>
 </g></a>
 
-<!-- Hershey — same latitude as Pittsburgh (same y~372), far east — geographically correct -->
-<a href="https://www.google.com/maps/search/?api=1&query=Hersheypark+Hershey+Pennsylvania" target="_blank" rel="noopener"><g class="map-pin">
-<circle class="ring" cx="730" cy="372" r="22" fill="#FBF8F1" stroke="#1F3A5F" stroke-width="2.5"/>
-<text class="emoji" x="730" y="380" text-anchor="middle">🍫</text>
-<text class="mlabel" x="730" y="340" text-anchor="middle">Hershey, PA</text>
-<text class="mdate" x="730" y="326" text-anchor="middle">AUG 8–9 · chocolate</text>
-</g></a>
 
 </svg>
 </div>
-<div class="map-note">Gold = outbound · Green = return home · Pittsburgh &amp; Hershey share the same latitude · DC &amp; Shenandoah share the same latitude · Not to scale (obviously)</div>
+<div class="map-note">Gold = outbound · Green = return home · DC &amp; Shenandoah share the same latitude · Not to scale (obviously)</div>
 </div>
 </section>
 
@@ -506,6 +511,13 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <p>A short century-old cable car ride kids love, ending at the best skyline view in Pittsburgh. Quick outing — great to pair with ice cream or an evening.</p>
 <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Duquesne+Incline+Pittsburgh" target="_blank" rel="noopener">📍 Open in Maps</a>
 </div>
+<div class="kid-card" style="border-top-color:#2E7D6B;">
+<span class="kc-emoji">🎣</span>
+<h4>Lake Erie — Fish + Tube + Jet Ski</h4>
+<div class="kc-meta">~2 hrs · Erie, PA · Full day</div>
+<p><b>Morning:</b> Perch charter on Presque Isle Bay — all gear included, constant bites, perfect for kids. Stays in the calm sheltered bay, not the open lake. Book via Rough House Charters, Buckets Charters, or Perch Pirate. <b>Midday:</b> Beach at Presque Isle State Park — voted <b>#1 Best Lake in America</b> by USA Today. <b>Afternoon:</b> Jet skis + pontoon tubing via <b>Port Erie Sports</b> on the bay. Baby on the pontoon with a parent; 5-yr-olds can tube at low speed. Adults wanting walleye/lake trout should book a separate open-lake charter (skip this one with the baby on board).</p>
+<a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Presque+Isle+State+Park+Erie+PA" target="_blank" rel="noopener">📍 Open in Maps</a>
+</div>
 </div>
 </section>
 
@@ -532,7 +544,6 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <li><b>Fallingwater tours</b> — timed slots, sell out; closed Wed</li>
 <li><b>CN Tower</b> — buy tickets online to skip lines</li>
 <li><b>Shenandoah</b> — $35/vehicle entrance fee; no advance booking needed for Skyline Drive</li>
-<li><b>Hersheypark</b> — cheaper online than at the gate</li>
 <li><b>Kennywood</b> — cheaper online than at the gate</li>
 </ul>
 </div>
@@ -552,19 +563,19 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <li>Enter at <b>Front Royal</b> (north entrance) coming from DC</li>
 <li>Fill gas before entering — scarce inside the park</li>
 <li>Cell service is spotty — download offline maps</li>
-<li>Leave by <b>3 PM</b> to reach Hershey by dinner (~2.5 hrs)</li>
+<li>Leave by <b>3–4 PM</b> to get back to Pittsburgh at a reasonable hour (~4.5 hrs)</li>
 <li>Junior Ranger booklets free at any visitor center</li>
 </ul>
 </div>
 <div class="know-card">
-<h4>🍫 Hershey Tips</h4>
+<h4>🎣 Lake Erie Tips</h4>
 <ul>
-<li><b>Hotel:</b> Courtyard Marriott Hershey Chocolate Ave (Aug 8) — free parking, walk to park &amp; Chocolate World</li>
-<li><b>Rowan (43" · Reese's tier):</b> 56 rides — Comet, sooperdooperLooper, Laff Trakk, Tidal Force</li>
-<li><b>Kid #2 (48" · Hershey's tier):</b> adds Wildcat's Revenge ⭐, Lightning Racer, Great Bear. Right at cutoff — wear socks, skip thick soles</li>
-<li>Neither hits 54" yet — Skyrush/Candymonium next visit</li>
-<li>ZooAmerica included with admission · Chocolate World free entry</li>
-<li>Cribs available at Courtyard — confirm at booking</li>
+<li>~2 hrs from Pittsburgh — plan a full day</li>
+<li>Perch charter = best for kids and the baby (calm bay, constant action, gear included)</li>
+<li>Walleye/trout open-lake charters = adults only, not with a 1-yr-old on board</li>
+<li><b>Port Erie Sports</b> for jet skis + pontoon tubing on Presque Isle Bay</li>
+<li>Adults need a PA fishing license — kids under 16 fish free</li>
+<li>Book charters ahead — summer weekends fill up fast</li>
 </ul>
 </div>
 <div class="know-card">
@@ -572,7 +583,7 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 <ul>
 <li>House rule: wheels rolling by <b>5–6am</b> on big drive days</li>
 <li>Longest leg: Brampton → Pittsburgh (~5 hrs)</li>
-<li>Hershey → Pittsburgh = <b>3.5 hrs</b> via I-76 Turnpike (tolls ~$15–20)</li>
+<li>Shenandoah → Pittsburgh = <b>~4.5 hrs</b> via I-66 N → I-70 W</li>
 <li>Skyline Drive is 35 mph and winding — it's the destination, not a shortcut</li>
 <li>Watch for deer at dawn/dusk near Shenandoah</li>
 </ul>
@@ -581,7 +592,7 @@ fill="none" stroke="#2E7D6B" stroke-width="3" stroke-dasharray="2 11" stroke-lin
 </section>
 
 <footer>
-PITTSBURGH ⇄ TORONTO ⇄ DC ⇄ SHENANDOAH ⇄ HERSHEY · SUMMER 2026 · MADE WITH ☕ AND A SPREADSHEET
+PITTSBURGH ⇄ TORONTO ⇄ DC ⇄ SHENANDOAH · SUMMER 2026 · MADE WITH ☕ AND A SPREADSHEET
 </footer>
 
 <script>
@@ -650,16 +661,16 @@ const stops = [
   lat:38.90, lon:-77.04, isoDate:"2026-08-07", tz:"America/New_York"
 },
 { date:"AUG 8 · SAT", icon:"🥾", type:"hike", drive:"~1.5 hrs to park · leave 7 AM",
-  title:"Shenandoah NP → Hershey, PA", place:"Skyline Drive · Front Royal entrance", q:"Shenandoah National Park Front Royal",
-  what:"Leave DC by <b>7:00 AM</b>. Morning in the park: <b>Stony Man Trail</b> (best view-for-effort, 1.6 mi), Skyline Drive overlooks, <b>Dark Hollow Falls</b> (70-ft waterfall, 1.4 mi). Junior Ranger booklets at the visitor center. Exit by <b>3 PM</b> → drive to Hershey (~2.5 hrs). Evening: <b>Hershey's Chocolate World</b> — factory tour ride, tastings, 4D movie. Walking distance from hotel.",
-  stay:"🌙 Hershey, PA — Courtyard Marriott Chocolate Ave",
+  title:"Shenandoah National Park", place:"Skyline Drive · Front Royal entrance", q:"Shenandoah National Park Front Royal",
+  what:"Leave DC by <b>7:00 AM</b>. Morning in the park: <b>Stony Man Trail</b> (best view-for-effort, 1.6 mi), Skyline Drive overlooks, <b>Dark Hollow Falls</b> (70-ft waterfall, 1.4 mi). Pick up Junior Ranger booklets at the visitor center — kids earn an NPS badge. Deer everywhere on Skyline Drive. Exit by 3–4 PM.",
+  stay:"🌙 Luray / Big Meadows area",
   lat:38.53, lon:-78.35, isoDate:"2026-08-08", tz:"America/New_York"
 },
-{ date:"AUG 9 · SUN", icon:"🎢", type:"kids", drive:"~3.5 hrs home · leave 1-2 PM",
-  title:"Hersheypark + Chocolate World → Pittsburgh", place:"Hersheypark, Hershey PA", q:"Hersheypark Hershey Pennsylvania",
-  what:"Morning at <b>Hersheypark</b>. Buy tickets online in advance (cheaper than gate). <br><br><b>Rowan (43&quot; · Reese&apos;s tier):</b> Comet (80-yr-old classic wooden coaster 🎉), sooperdooperLooper (first loop!), Laff Trakk (indoor spinning glow coaster), Tidal Force splash ride — 56 attractions total. <br><b>Kid #2 (48&quot; · Hershey&apos;s tier):</b> Everything above plus Wildcat&apos;s Revenge (RMC hybrid ⭐), Lightning Racer (dueling wooden coaster), Great Bear (inverted, 124-ft drop). ⚠️ Right at the 48&quot; cutoff — measure in socks; ride operators make the final call. <br><br>ZooAmerica wildlife park included with admission. Hit <b>Chocolate World</b> for create-your-own bar before heading out. On the road by <b>1–2 PM</b> via I-76 Turnpike, home in Pittsburgh by <b>4:30–5:30 PM</b>.",
+{ date:"AUG 9 · SUN", icon:"🚗", type:"drive", drive:"~4.5 hrs home",
+  title:"Morning in the Park → Back to Pittsburgh", place:"Luray Caverns", q:"Luray Caverns Virginia",
+  what:"One more overlook or an optional <b>Luray Caverns</b> stop — massive underground cave system, kids love it, about 1 hour. Then on I-66 N → I-70 W back to Pittsburgh, arriving by late afternoon.",
   stay:"🌙 Seven Fields — Pradeep's home",
-  lat:40.29, lon:-76.65, isoDate:"2026-08-09", tz:"America/New_York"
+  lat:38.46, lon:-78.46, isoDate:"2026-08-09", tz:"America/New_York"
 },
 { phase:"Kid Days · Wind-Down",
   date:"AUG 10 · MON", icon:"🎢", type:"kids", drive:"local",
